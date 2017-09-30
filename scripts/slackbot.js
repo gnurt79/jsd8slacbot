@@ -39,11 +39,28 @@ you need to move the contents of module.exports below into the module.exports co
 // var hoursToTeaTime;
 var minutesToTeaTime;
 const TEA_TIME_HOURS = 15;
-const TEA_TIME_MINUTES = 50;
+const TEA_TIME_MINUTES = 0
+
+mostFavRobotImages = [
+  "https://s.blogcdn.com/blog.moviefone.com/media/2013/05/r-friendliest-movie-robots-large570.jpg5",
+  "https://cdn.pastemagazine.com/www/articles/19-Best-100-Robots-in-Film-Robot-WallE.jpg",
+  "https://cdn.pastemagazine.com/www/articles/82-Best-100-Robots-in-Film-Johnny5.jpg",
+  "http://images.contentful.com/7h71s48744nc/M41DNW30aGs44cKsq2Mkk/8f5586196d55c260ee2540c15f0fd009/robots.jpg",
+
+
+];
+
+leastFavRobotImages = [
+  "http://img.wennermedia.com/920-width/rs-202131-maxresdefault.jpg",
+  "https://i.ytimg.com/vi/GlvopMebo_k/maxresdefault.jpg",
+  "http://www.joblo.com/top_ten_gallery_img/b890c1dd-e98f-b742..jpg",
+  "http://pop.h-cdn.co/assets/cm/15/05/54caec985a61e_-_evil-robots-00-0612-de.jpg"
+
+];
 
 module.exports = function(teabot) {
   // Basic example of respond / send. If the user enters hi or hello the bot responds "Howdy!"
-  teabot.respond(/time/i, function(msg) {
+  teabot.respond(/When is tea time?/i, function(msg) {
     var currentTime = new Date();
 
     hoursToTeaTime = currentTime.getHours() - TEA_TIME_HOURS;
@@ -56,17 +73,32 @@ module.exports = function(teabot) {
       return msg.send("2: The next tea time is in " + (24 - hoursToTeaTime) + " hours and " +  Math.abs(minutesToTeaTime) + " minutes.");
     }
     else if (hoursToTeaTime < 0 && minutesToTeaTime >= 0) {
-      return msg.send("2: The next tea time is in " + Math.abs(hoursToTeaTime) + " hours and " +  (60 - minutesToTeaTime) + " minutes.");
+      return msg.send("3: The next tea time is in " + Math.abs(hoursToTeaTime) + " hours and " +  (60 - minutesToTeaTime) + " minutes.");
     }
     else {
-      return msg.send("2: The next tea time is in " + (24 - hoursToTeaTime) + " hours and " +  (60 - minutesToTeaTime) + " minutes.");
+      return msg.send("4: The next tea time is in " + (24 - hoursToTeaTime) + " hours and " +  (60 - minutesToTeaTime) + " minutes.");
     }
 
   });
 
-  // teabot.hear(/bot|robot/, function(res) {
-  //  return res.send("I'm a little Teabot!");
-  // });
+  teabot.hear(/bot/, function(res) {
+   return res.send("I'm a little Teabot!");
+  });
+
+  teabot.respond(/who is your (.*) favorite robot/i, function(msg) {
+   var fav;
+   fav = msg.match[1];
+   switch (fav) {
+     case "most":
+       return msg.send(msg.random(mostFavRobotImages));
+       break;
+     case "least":
+       return msg.send(msg.random(leastFavRobotImages));
+       break;
+     default:
+       return msg.send("ME OF COURSE!!");
+   }
+ });
   //
   // bot.respond(/Hi Yellobot! My name is (.*)/i, function(msg) {
   // var name;
