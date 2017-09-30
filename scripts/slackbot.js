@@ -39,15 +39,14 @@ you need to move the contents of module.exports below into the module.exports co
 // var hoursToTeaTime;
 var minutesToTeaTime;
 const TEA_TIME_HOURS = 15;
-const TEA_TIME_MINUTES = 0
+const TEA_TIME_MINUTES = 0;
+// const HUBOT_GIPHY_API_KEY = "dc6zaTOxFJmzC";
 
 mostFavRobotImages = [
-  "https://s.blogcdn.com/blog.moviefone.com/media/2013/05/r-friendliest-movie-robots-large570.jpg5",
+  "http://loadion.com/ii/4504413206_ddd10b28d9.jpg",
   "https://cdn.pastemagazine.com/www/articles/19-Best-100-Robots-in-Film-Robot-WallE.jpg",
   "https://cdn.pastemagazine.com/www/articles/82-Best-100-Robots-in-Film-Johnny5.jpg",
   "http://images.contentful.com/7h71s48744nc/M41DNW30aGs44cKsq2Mkk/8f5586196d55c260ee2540c15f0fd009/robots.jpg",
-
-
 ];
 
 leastFavRobotImages = [
@@ -55,8 +54,41 @@ leastFavRobotImages = [
   "https://i.ytimg.com/vi/GlvopMebo_k/maxresdefault.jpg",
   "http://www.joblo.com/top_ten_gallery_img/b890c1dd-e98f-b742..jpg",
   "http://pop.h-cdn.co/assets/cm/15/05/54caec985a61e_-_evil-robots-00-0612-de.jpg"
-
 ];
+
+const giphy = {
+  api_key: process.env.HUBOT_GIPHY_API_KEY,
+  base_url: 'http://api.giphy.com/v1'
+};
+
+
+var search = function(msg, query, cb) {
+  const endpoint = '/gifs/search';
+  const url = `${giphy.base_url}${endpoint}`;
+
+  return msg.http(url)
+    .query({
+      q: query,
+      api_key: giphy.api_key}).get()(function(err, res, body) {
+      let response = undefined;
+      try {
+        response = JSON.parse(body);
+        const images = response.data;
+        if (images.length > 0) {
+          const image = msg.random(images);
+          // return cb(image.images.original.url);
+          return msg.send(image.images.original.url);
+        }
+
+      } catch (e) {
+        response = undefined;
+        // return cb('Error');
+        return msg.send(`No results found for ${query}`);
+      }
+
+      if (response === undefined) { return; }
+  });
+};
 
 module.exports = function(teabot) {
   // Basic example of respond / send. If the user enters hi or hello the bot responds "Howdy!"
@@ -81,7 +113,7 @@ module.exports = function(teabot) {
 
   });
 
-  teabot.hear(/bot/, function(res) {
+  teabot.hear(/fail/, function(res) {
    return res.send("I'm a little Teabot!");
   });
 
@@ -98,7 +130,10 @@ module.exports = function(teabot) {
      default:
        return msg.send("ME OF COURSE!!");
    }
- });
+  });
+  teabot.hear(/giphy (.*)$/i, function(msg) {
+    search(msg, msg.match[1]);
+  });
   //
   // bot.respond(/Hi Yellobot! My name is (.*)/i, function(msg) {
   // var name;
