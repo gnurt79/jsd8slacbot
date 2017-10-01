@@ -131,8 +131,8 @@ module.exports = function(teabot) {
        return msg.send("ME OF COURSE!!");
    }
   });
-  teabot.hear(/giphy (.*)$/i, function(msg) {
-    search(msg, msg.match[1]);
+  teabot.hear(/bot|robot/i, function(msg) {
+    search(msg, "robot");
   });
   //
   // bot.respond(/Hi Yellobot! My name is (.*)/i, function(msg) {
