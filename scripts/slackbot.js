@@ -58,7 +58,8 @@ leastFavRobotImages = [
 
 const giphy = {
   api_key: process.env.HUBOT_GIPHY_API_KEY,
-  base_url: 'http://api.giphy.com/v1'
+  base_url: 'http://api.giphy.com/v1',
+
 };
 
 
@@ -77,7 +78,7 @@ var search = function(msg, query, cb) {
         if (images.length > 0) {
           const image = msg.random(images);
           // return cb(image.images.original.url);
-          return msg.send(image.images.original.url);
+          return msg.send(image.images.downsized.url);
         }
 
       } catch (e) {
