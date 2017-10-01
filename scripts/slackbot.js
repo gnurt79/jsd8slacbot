@@ -38,8 +38,8 @@ you need to move the contents of module.exports below into the module.exports co
 // var currentTime = new Date();
 // var hoursToTeaTime;
 var minutesToTeaTime;
-const TEA_TIME_HOURS = 15;
-const TEA_TIME_MINUTES = 0;
+const TEA_TIME_HOURS = 18;
+const TEA_TIME_MINUTES = 30;
 // const HUBOT_GIPHY_API_KEY = "dc6zaTOxFJmzC";
 
 mostFavRobotImages = [
@@ -78,13 +78,13 @@ var search = function(msg, query, cb) {
         if (images.length > 0) {
           const image = msg.random(images);
           // return cb(image.images.original.url);
-          return msg.send(image.images.downsized.url);
+          return msg.reply(image.images.downsized.url);
         }
 
       } catch (e) {
         response = undefined;
         // return cb('Error');
-        return msg.send(`No results found for ${query}`);
+        return msg.reply(`No results found for ${query}`);
       }
 
       if (response === undefined) { return; }
@@ -135,13 +135,5 @@ module.exports = function(teabot) {
   teabot.hear(/bot|robot/i, function(msg) {
     search(msg, "robot");
   });
-  //
-  // bot.respond(/Hi Yellobot! My name is (.*)/i, function(msg) {
-  // var name;
-  // name = msg.match[1];
-  // if (name == "Yellowbot"){
-  //   return msg.send("You're not Yellowbot--I'm Yellowbot!");
-  // } else {
-  //   return msg.reply("Nice to meet you, " + name + "!");
-  // }
+
 };
