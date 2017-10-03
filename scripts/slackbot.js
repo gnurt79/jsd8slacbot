@@ -135,16 +135,16 @@ module.exports = function(teabot) {
 
     // Conditions to calculate the hours and minutes before the next class
     if (hoursToTeaTime < 0 && minutesToTeaTime < 0) {
-      return msg.send("1: The next JSD class is in " + daysToTeaTime + " day(s), " +  Math.abs(hoursToTeaTime) + " hours, and " +  Math.abs(minutesToTeaTime) + " minutes.");
+      return msg.send("The next JSD class is in " + daysToTeaTime + " day(s), " +  Math.abs(hoursToTeaTime) + " hours, and " +  Math.abs(minutesToTeaTime) + " minutes.");
     }
     else if (hoursToTeaTime >= 0 && minutesToTeaTime < 0) {
-      return msg.send("2: The next JSD class is in " + daysToTeaTime + " day(s), " + (24 - hoursToTeaTime) + " hours, and " +  Math.abs(minutesToTeaTime) + " minutes.");
+      return msg.send("The next JSD class is in " + daysToTeaTime + " day(s), " + (24 - hoursToTeaTime) + " hours, and " +  Math.abs(minutesToTeaTime) + " minutes.");
     }
     else if (hoursToTeaTime < 0 && minutesToTeaTime >= 0) {
-      return msg.send("3: The next JSD class is in " + daysToTeaTime + " day(s), " + Math.abs(hoursToTeaTime) + " hours, and " +  (60 - minutesToTeaTime) + " minutes.");
+      return msg.send("The next JSD class is in " + daysToTeaTime + " day(s), " + Math.abs(hoursToTeaTime) + " hours, and " +  (60 - minutesToTeaTime) + " minutes.");
     }
     else {
-      return msg.send("4: The next JSD class is in " + daysToTeaTime + " day(s), " + (24 - hoursToTeaTime) + " hours, and " +  (60 - minutesToTeaTime) + " minutes.");
+      return msg.send("The next JSD class is in " + daysToTeaTime + " day(s), " + (24 - hoursToTeaTime) + " hours, and " +  (60 - minutesToTeaTime) + " minutes.");
     }
   });
 
