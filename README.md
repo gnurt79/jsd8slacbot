@@ -29,6 +29,8 @@ You'll see some start up output and a prompt:
 
 Then you can interact with Teabot by typing `Teabot help`.
 
+    Teabot Who is your (most|least) favorite robot?
+    Teabot When is the next JSD class?
     Teabot> Teabot help
     Teabot animate me <query> - The same thing as `image me`, except adds [snip]
     Teabot help - Displays all of the help commands that Teabot knows about.

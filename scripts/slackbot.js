@@ -26,7 +26,7 @@
 
 /************************************
 
-EXAMPLES OF THE KEY HUBOT FUNCTIONS
+I'M A LITTLE TEABOT
 
 ************************************/
 
